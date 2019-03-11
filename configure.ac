@@ -16,6 +16,8 @@ AM_INIT_AUTOMAKE([subdir-objects no-dist-gzip dist-xz check-news])
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 AM_MAINTAINER_MODE
 
+AC_CHECK_LIB(m, round)
+
 # Honor aclocal flags
 AC_SUBST(ACLOCAL_AMFLAGS, "\${ACLOCAL_FLAGS}")
 
