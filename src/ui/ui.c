@@ -545,7 +545,7 @@ meta_gdk_pixbuf_get_from_pixmap (GdkPixbuf   *dest,
   Window root_return;
   int x_ret, y_ret;
   unsigned int w_ret, h_ret, bw_ret, depth_ret;
-  XWindowAttributes attrs;
+  GdkVisual *visual;
   GdkPixbuf *retval;
 
   display = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
@@ -564,13 +564,12 @@ meta_gdk_pixbuf_get_from_pixmap (GdkPixbuf   *dest,
     }
   else
     {
-      if (!XGetWindowAttributes (display, root_return, &attrs))
-        return NULL;
+       visual = gdk_screen_get_rgba_visual (gdk_screen_get_default());
+       if (!visual)
+          visual = gdk_screen_get_system_visual (gdk_screen_get_default());
 
-      surface = cairo_xlib_surface_create (display,
-                                           xpixmap,
-                                           attrs.visual,
-                                           w_ret, h_ret);
+
+       surface = cairo_xlib_surface_create (display, xpixmap, GDK_VISUAL_XVISUAL (visual), w_ret, h_ret);
     }
 
   retval = gdk_pixbuf_get_from_surface (surface,
