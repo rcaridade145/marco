@@ -182,6 +182,8 @@ MetaUIDirection meta_ui_get_direction (void);
 
 GdkPixbuf *meta_ui_get_pixbuf_from_surface (cairo_surface_t *surface);
 
+gint meta_ui_get_scale (MetaUI *ui);
+
 #include "tabpopup.h"
 #include "tile-preview.h"
 
